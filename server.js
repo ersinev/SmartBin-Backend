@@ -1,12 +1,16 @@
+// Load environment variables from .env file
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/smartbin', {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
@@ -17,25 +21,20 @@ mongoose.connect('mongodb://127.0.0.1:27017/smartbin', {
 
 // Mongoose model for our weights
 const Weight = mongoose.model('Weight', new mongoose.Schema({
+    deviceId: String,
     weight: Number,
-    temp:Number,
-    pres:Number,
-    humd:Number,
     timestamp: Date
 }));
 
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
 
-// Route to add weight
-app.post('/add-weight', async (req, res) => {
+// Route to add weight for a specific device
+app.post('/add-weight/:deviceId', async (req, res) => {
     const weightData = {
+        deviceId: req.params.deviceId,
         weight: req.body.weight,
-        temp: req.body.temp,
-        pres: req.body.pres,
-        humd: req.body.humd,
-
-        timestamp: new Date() // Automatically set the timestamp to the current time
+        timestamp: new Date()
     };
 
     const newWeight = new Weight(weightData);
@@ -48,10 +47,19 @@ app.post('/add-weight', async (req, res) => {
     }
 });
 
+// Route to fetch all weight data for a specific device
+app.get('/fetch-weights/:deviceId', (req, res) => {
+    Weight.find({ deviceId: req.params.deviceId })
+        .then(data => {
+            res.status(200).send(data);
+        })
+        .catch(err => {
+            res.status(500).send(err);
+        });
+});
 
-
-// Route to fetch all weight data
-app.get('/fetch-weights', (req, res) => {
+// Route to fetch all weight data (regardless of device)
+app.get('/fetch-all-weights', (req, res) => {
     Weight.find({})
         .then(data => {
             res.status(200).send(data);
@@ -59,6 +67,40 @@ app.get('/fetch-weights', (req, res) => {
         .catch(err => {
             res.status(500).send(err);
         });
+});
+
+// Delete a specific record based on its _id
+app.delete('/delete-weight/:id', async (req, res) => {
+    try {
+        const result = await Weight.findByIdAndDelete(req.params.id);
+        if (result) {
+            res.status(200).send({ message: "Weight deleted successfully." });
+        } else {
+            res.status(404).send({ message: "Weight not found." });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Delete all records for a specific deviceId
+app.delete('/delete-weights/:deviceId', async (req, res) => {
+    try {
+        const result = await Weight.deleteMany({ deviceId: req.params.deviceId });
+        res.status(200).send({ message: `${result.deletedCount} weights deleted.` });
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// Delete all records
+app.delete('/delete-all-weights', async (req, res) => {
+    try {
+        const result = await Weight.deleteMany({});
+        res.status(200).send({ message: `${result.deletedCount} weights deleted.` });
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 // Start server
