@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const nodemailer = require('nodemailer');
 app.use(cors())
 
 const PORT = process.env.PORT || 3000;
@@ -103,6 +104,35 @@ app.delete('/delete-all-weights', async (req, res) => {
         res.status(500).send(err);
     }
 });
+
+// Send Email Route
+app.post('/send-email', async (req, res) => {
+    const { to, subject, text } = req.body;
+    
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+    
+    let mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: to,
+        subject: subject,
+        text: text,
+    };
+    
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            res.status(500).send(error);
+        } else {
+            res.status(200).send('Email sent: ' + info.response);
+        }
+    });
+});
+
 
 // Start server
 app.listen(PORT, () => {
