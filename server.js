@@ -1,155 +1,140 @@
 // Load environment variables from .env file
-require("dotenv").config();
+require('dotenv').config();
 
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
-const nodemailer = require("nodemailer");
-app.use(cors());
+const nodemailer = require('nodemailer');
+app.use(cors())
 
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connectio
-mongoose
-  .connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  })
-  .then(() => {
+}).then(() => {
     console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
+}).catch(err => {
     console.error("Error connecting to MongoDB:", err);
-  });
+});
 
 // Mongoose model for our weights
-const Weight = mongoose.model(
-  "Weight",
-  new mongoose.Schema({
+const Weight = mongoose.model('Weight', new mongoose.Schema({
     deviceId: String,
     weight: Number,
-    timestamp: Date,
-  })
-);
+    timestamp: Date
+}));
 
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
 
 // Route to add weight for a specific device
-app.post("/add-weight/:deviceId", async (req, res) => {
-  const weightData = {
-    deviceId: req.params.deviceId,
-    weight: req.body.weight,
-    timestamp: new Date(),
-  };
+app.post('/add-weight/:deviceId', async (req, res) => {
+    const weightData = {
+        deviceId: req.params.deviceId,
+        weight: req.body.weight,
+        timestamp: new Date()
+    };
 
-  const newWeight = new Weight(weightData);
-
-  try {
-    const savedData = await newWeight.save();
-    res.status(200).send(savedData);
-  } catch (err) {
-    res.status(500).send(err);
-  }
+    const newWeight = new Weight(weightData);
+    
+    try {
+        const savedData = await newWeight.save();
+        res.status(200).send(savedData);
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 // Route to fetch all weight data for a specific device
-app.get("/fetch-weights/:deviceId", (req, res) => {
-  Weight.find({ deviceId: req.params.deviceId })
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+app.get('/fetch-weights/:deviceId', (req, res) => {
+    Weight.find({ deviceId: req.params.deviceId })
+        .then(data => {
+            res.status(200).send(data);
+        })
+        .catch(err => {
+            res.status(500).send(err);
+        });
 });
 
 // Route to fetch all weight data (regardless of device)
-app.get("/fetch-all-weights", (req, res) => {
-  Weight.find({})
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+app.get('/fetch-all-weights', (req, res) => {
+    Weight.find({})
+        .then(data => {
+            res.status(200).send(data);
+        })
+        .catch(err => {
+            res.status(500).send(err);
+        });
 });
 
 // Delete a specific record based on its _id
-app.delete("/delete-weight/:id", async (req, res) => {
-  try {
-    const result = await Weight.findByIdAndDelete(req.params.id);
-    if (result) {
-      res.status(200).send({ message: "Weight deleted successfully." });
-    } else {
-      res.status(404).send({ message: "Weight not found." });
+app.delete('/delete-weight/:id', async (req, res) => {
+    try {
+        const result = await Weight.findByIdAndDelete(req.params.id);
+        if (result) {
+            res.status(200).send({ message: "Weight deleted successfully." });
+        } else {
+            res.status(404).send({ message: "Weight not found." });
+        }
+    } catch (err) {
+        res.status(500).send(err);
     }
-  } catch (err) {
-    res.status(500).send(err);
-  }
 });
 
 // Delete all records for a specific deviceId
-app.delete("/delete-weights/:deviceId", async (req, res) => {
-  try {
-    const result = await Weight.deleteMany({ deviceId: req.params.deviceId });
-    res
-      .status(200)
-      .send({ message: `${result.deletedCount} weights deleted.` });
-  } catch (err) {
-    res.status(500).send(err);
-  }
+app.delete('/delete-weights/:deviceId', async (req, res) => {
+    try {
+        const result = await Weight.deleteMany({ deviceId: req.params.deviceId });
+        res.status(200).send({ message: `${result.deletedCount} weights deleted.` });
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 // Delete all records
-app.delete("/delete-all-weights", async (req, res) => {
-  try {
-    const result = await Weight.deleteMany({});
-    res
-      .status(200)
-      .send({ message: `${result.deletedCount} weights deleted.` });
-  } catch (err) {
-    res.status(500).send(err);
-  }
+app.delete('/delete-all-weights', async (req, res) => {
+    try {
+        const result = await Weight.deleteMany({});
+        res.status(200).send({ message: `${result.deletedCount} weights deleted.` });
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
-// Configure email transporter
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    type: "OAuth2",
-    user: process.env.EMAIL,
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN,
-    accessToken: process.env.ACCESS_TOKEN,
-  },
-});
-
-// Route to send email
-app.post("/send-email", async (req, res) => {
-  try {
+// Send Email Route
+app.post('/send-email', async (req, res) => {
     const { to, subject, text } = req.body;
-
-    const mailOptions = {
-      from: process.env.EMAIL,
-      to,
-      subject,
-      text,
+    
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+    
+    let mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: to,
+        subject: subject,
+        text: text,
     };
-
-    await transporter.sendMail(mailOptions);
-
-    res.status(200).send({ message: "Email sent successfully" });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).send(error);
-  }
+    
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            res.status(500).send(error);
+        } else {
+            res.status(200).send('Email sent: ' + info.response);
+        }
+    });
 });
+
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
