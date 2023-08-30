@@ -110,7 +110,7 @@ app.post('/send-email', async (req, res) => {
     const { to, subject, text } = req.body;
     
     let transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: 'hotmail',
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
