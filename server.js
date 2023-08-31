@@ -118,6 +118,8 @@ app.delete("/delete-all-weights", async (req, res) => {
 // Send Email Route
 const user = process.env.REACT_APP_EMAIL_PASS
 const pass = process.env.REACT_APP_EMAIL_PASS
+console.log(process.env.REACT_APP_EMAIL_USER)
+console.log(process.env.REACT_APP_EMAIL_PASS)
 
 app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
@@ -127,14 +129,14 @@ app.post("/send-email", async (req, res) => {
     port: 587,
     secure: false,
     auth: {
-        user: process.env.REACT_APP_EMAIL_USER,
-        pass: process.env.REACT_APP_EMAIL_PASS
+        user: `${process.env.REACT_APP_EMAIL_USER}`,
+        pass: `${process.env.REACT_APP_EMAIL_PASS}`
     }
 });
  
 
   let mailOptions = {
-    from:  user,
+    from: `${process.env.REACT_APP_EMAIL_USER}`,
     to: to,
     subject: subject,
     text: text,
