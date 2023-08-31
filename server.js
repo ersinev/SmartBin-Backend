@@ -9,7 +9,7 @@ const cors = require("cors");
 const app = express();
 const nodemailer = require("nodemailer");
 app.use(cors());
-const PORT = 3005;
+const PORT = process.env.PORT || 3005;
 
 // MongoDB connectio
 mongoose
