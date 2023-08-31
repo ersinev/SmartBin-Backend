@@ -125,7 +125,7 @@ app.post("/send-email", async (req, res) => {
     service: "hotmail",
     auth: {
       user: process.env.REACT_APP_EMAIL_USER,
-      pass: REACT_APP_EMAIL_PASS,
+      pass: process.env.REACT_APP_EMAIL_PASS,
     },
   });
  
