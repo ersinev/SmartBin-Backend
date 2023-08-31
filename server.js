@@ -134,7 +134,7 @@ app.post("/send-email", async (req, res) => {
  
 
   let mailOptions = {
-    from: user,
+    from: 'itgaragesmartbin@hotmail.com',
     to: to,
     subject: subject,
     text: text,
