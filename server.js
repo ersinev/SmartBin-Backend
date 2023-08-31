@@ -107,7 +107,7 @@ app.delete('/delete-all-weights', async (req, res) => {
 
 // Send Email Route
 app.post('/send-email', async (req, res) => {
-    const { to, subject, text } = req.body;
+    const {  subject, text } = req.body;
     
     let transporter = nodemailer.createTransport({
         service: 'hotmail',
@@ -119,19 +119,22 @@ app.post('/send-email', async (req, res) => {
     
     let mailOptions = {
         from: process.env.EMAIL_USER,
-        to: to,
+        to: 'ersinevci@hotmail.com',
         subject: subject,
         text: text,
     };
     
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
+            console.error("Nodemailer error:", error);
             res.status(500).send(error);
         } else {
+            console.log("Email sent:", info.response);
             res.status(200).send('Email sent: ' + info.response);
         }
     });
 });
+
 
 
 // Start server
