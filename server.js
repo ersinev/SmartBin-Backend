@@ -125,9 +125,7 @@ app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
 
   let transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
-    port: 587,
-    secure: false,
+    service: `hotmail`,
     auth: {
         user: `ersinevci@hotamail.com`,
         pass: `smart123456*`
