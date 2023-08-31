@@ -123,12 +123,14 @@ app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
 
   let transporter = nodemailer.createTransport({
-    service: "hotmail",
+    host: "smtp-mail.outlook.com",
+    port: 587,
+    secure: false,
     auth: {
-      user: user,
-      pass: pass,
-    },
-  });
+        user: process.env.REACT_APP_EMAIL_USER,
+        pass: process.env.REACT_APP_EMAIL_PASS
+    }
+});
  
 
   let mailOptions = {
