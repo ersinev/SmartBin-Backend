@@ -1,4 +1,5 @@
 // Load environment variables from .env file
+require("dotenv").config();
 
 
 const express = require("express");
@@ -8,7 +9,6 @@ const cors = require("cors");
 const app = express();
 const nodemailer = require("nodemailer");
 app.use(cors());
-require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connectio
@@ -117,9 +117,6 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 // Send Email Route
 
-
-console.log('User from .env:', user);
-console.log('Pass from .env:', pass);
 
 app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
