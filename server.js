@@ -123,6 +123,8 @@ app.post('/send-email', async (req, res) => {
         subject: subject,
         text: text,
     };
+    console.log(to)
+
     
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -134,7 +136,6 @@ app.post('/send-email', async (req, res) => {
         }
     });
 });
-
 
 
 // Start server
