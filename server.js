@@ -116,7 +116,8 @@ app.delete("/delete-all-weights", async (req, res) => {
 });
 
 // Send Email Route
-
+const user = process.env.REACT_APP_EMAIL_PASS
+const pass = process.env.REACT_APP_EMAIL_PASS
 
 app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
@@ -124,14 +125,14 @@ app.post("/send-email", async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: process.env.REACT_APP_EMAIL_USER,
-      pass: process.env.REACT_APP_EMAIL_PASS,
+      user: user,
+      pass: pass,
     },
   });
  
 
   let mailOptions = {
-    from:  process.env.REACT_APP_EMAIL_USER,
+    from:  user,
     to: to,
     subject: subject,
     text: text,
