@@ -116,8 +116,7 @@ app.delete("/delete-all-weights", async (req, res) => {
 });
 
 // Send Email Route
-const user = process.env.EMAIL_USER;
-const pass = process.env.EMAIL_PASS;
+
 
 console.log('User from .env:', user);
 console.log('Pass from .env:', pass);
@@ -128,8 +127,8 @@ app.post("/send-email", async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: user,
-      pass: pass,
+      user: 'itgaragesmartbin@hotmail.com',
+      pass: 'smart123456*',
     },
   });
  
