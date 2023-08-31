@@ -129,14 +129,14 @@ app.post("/send-email", async (req, res) => {
     port: 587,
     secure: false,
     auth: {
-        user: `${process.env.REACT_APP_EMAIL_USER}`,
-        pass: `${process.env.REACT_APP_EMAIL_PASS}`
+        user: `ersinevci@hotamail.com`,
+        pass: `smart123456*`
     }
 });
  
 
   let mailOptions = {
-    from: `${process.env.REACT_APP_EMAIL_USER}`,
+    from: `ersinevci@hotmail.com`,
     to: to,
     subject: subject,
     text: text,
