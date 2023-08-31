@@ -129,10 +129,10 @@ app.post('/send-email', async (req, res) => {
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.error("Nodemailer error:", error);
-            res.status(500).send(error);
+            res.status(500).json({ error: 'Failed to send email' }); // Sending JSON
         } else {
             console.log("Email sent:", info.response);
-            res.status(200).send('Email sent: ' + info.response);
+            res.status(200).json({ message: 'Email sent successfully' }); // Sending JSON
         }
     });
 });
