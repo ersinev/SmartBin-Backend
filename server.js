@@ -9,7 +9,7 @@ const cors = require("cors");
 const app = express();
 const nodemailer = require("nodemailer");
 app.use(cors());
-const PORT = process.env.PORT || 3000;
+const PORT = 3005;
 
 // MongoDB connectio
 mongoose
@@ -36,6 +36,10 @@ const Weight = mongoose.model(
 
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
+
+app.get('/',(req,res)=>{
+    res.send("lol")
+})
 
 // Route to add weight for a specific device
 app.post("/add-weight/:deviceId", async (req, res) => {
@@ -124,14 +128,14 @@ app.post("/send-email", async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: "hotmail",
       auth: {
-        user: "itgaragesmartbin@hotmail.com",
-        pass: "smart123456*",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
  
 
   let mailOptions = {
-    from: `itgaragesmartbin@hotmail.com`,
+    from: process.env.EMAIL_USER,
     to: to,
     subject: subject,
     text: text,
