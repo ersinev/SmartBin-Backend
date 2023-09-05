@@ -143,7 +143,7 @@ app.post("/send-email", async (req, res) => {
       {
         filename: 'fullGarbage.png',
         path: __dirname + '/fullGarbage.png',
-        cid: 'fullGarbageImage' // Here, the CID is changed to match the src in the HTML.
+        cid: 'fullGarbageImage' 
       }
     ]
   };
