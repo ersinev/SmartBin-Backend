@@ -138,13 +138,7 @@ app.post("/send-email", async (req, res) => {
     from: "itgaragesmartbin@hotmail.com",
     to: to,
     subject: subject,
-    
-    html: `<div><p>${text_}</p><img src = "cid:myImg" style="width:400px;height:400px;"/></div>`,
-      attachments: [{
-        filename: 'fullGarbage.png',
-        path: __dirname + '/fullGarbage.png',
-        cid: 'myImg'
-      }]
+    text: text,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
