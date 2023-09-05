@@ -123,7 +123,7 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 
 app.post("/send-email", async (req, res) => {
-  const { to, subject, text } = req.body;
+  const { to, subject, html } = req.body;
 
   let transporter = nodemailer.createTransport({
     service: "hotmail",
@@ -134,16 +134,15 @@ app.post("/send-email", async (req, res) => {
   });
 
   let mailOptions = {
-    from: "itgaragesmartbin@hotmail.com",
+    from: process.env.EMAIL_USER, // Use env variables
     to: to,
     subject: subject,
-    html: hmtl,
-     
+    html: html,
     attachments: [
       {
         filename: 'fullGarbage.png',
-        path: __dirname + '/fullGarbage.png',
-        cid: 'unique@kreata.ee'
+        path: __dirname + '/fullGarbage.png', // make sure this file exists
+        cid: 'fullgarbage'  // should be the same as the content id used in html
       }
     ]
   };
