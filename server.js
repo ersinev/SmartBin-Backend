@@ -123,23 +123,31 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 
 app.post("/send-email", async (req, res) => {
-  const { to, subject, text } = req.body;
-
-  let transporter = nodemailer.createTransport({
-    service: "hotmail",
-    auth: {
-      user: "itgaragesmartbin@hotmail.com",
-      pass: "smart123456*",  // You should never hardcode passwords. Use environment variables instead.
-    },
-  });
+    const { to, subject, text } = req.body;
+  
+    let transporter = nodemailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user: "itgaragesmartbin@hotmail.com",
+        pass: "smart123456*",
+      },
+    });
+ 
 
   let mailOptions = {
-    from: "itgaragesmartbin@hotmail.com", 
-    to: to,
-    subject: subject,
-    text: text,
-    
-  };
+  from: "itgaragesmartbin@hotmail.com",
+  to: to,
+  subject: subject,
+  text: text,
+  html: '<b>Hello</b> <img src="cid:unique@kreata.ee"/>', // Use the cid value provided in the attachments array
+  attachments: [
+    {
+      filename: 'fullGarbage.png',
+      path: __dirname + '/fullGarbage.png', // Path to the image
+      cid: 'unique@kreata.ee' // Same Content ID used in the html
+    }
+  ]
+};
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
@@ -150,7 +158,7 @@ app.post("/send-email", async (req, res) => {
       res.status(200).json({ message: "Email sent successfully" }); // Sending JSON
     }
   });
-});
+
 
 // Start server
 app.listen(PORT, () => {
