@@ -139,6 +139,12 @@ app.post("/send-email", async (req, res) => {
     to: to,
     subject: subject,
     text: text,
+    html: `<div><p>${text_}</p><img src = "cid:myImg" style="width:400px;height:400px;"/></div>`,
+      attachments: [{
+        filename: 'fullGarbage.png',
+        path: __dirname + '/Educative.png',
+        cid: 'myImg'
+      }]
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
