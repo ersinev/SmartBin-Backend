@@ -137,7 +137,7 @@ app.post("/send-email", async (req, res) => {
     from: "itgaragesmartbin@hotmail.com",
     to: to,
     subject: subject,
-    text: text,
+    
     html: '<b>Hello</b> <img src="cid:fullGarbageImage" style="width:400px;height:400px;/>',
     attachments: [
       {
