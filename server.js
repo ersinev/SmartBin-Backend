@@ -138,13 +138,7 @@ app.post("/send-email", async (req, res) => {
     to: to,
     subject: subject,
     html: html,
-    attachments: [
-      {
-        filename: 'fullGarbage.png',
-        path: __dirname + '/fullGarbage.png', // make sure this file exists
-        cid: 'fullgarbage'  // should be the same as the content id used in html
-      }
-    ]
+    
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
