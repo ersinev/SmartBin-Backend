@@ -134,7 +134,7 @@ app.post("/send-email", async (req, res) => {
   });
 
   let mailOptions = {
-    from: process.env.EMAIL_USER, // Use env variables
+    from: "itgaragesmartbin@hotmail.com", 
     to: to,
     subject: subject,
     html: html,
