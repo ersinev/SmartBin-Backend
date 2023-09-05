@@ -138,7 +138,7 @@ app.post("/send-email", async (req, res) => {
     to: to,
     subject: subject,
     text: text,
-    html: '<b>Hello</b> <img src="cid:fullGarbageImage"/>',
+    html: '<b>Hello</b> <img src="cid:fullGarbageImage" style="width:400px;height:400px;/>',
     attachments: [
       {
         filename: 'fullGarbage.png',
