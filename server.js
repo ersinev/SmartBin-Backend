@@ -147,7 +147,7 @@ app.post("/send-email", async (req, res) => {
       cid: 'unique@kreata.ee' // Same Content ID used in the html
     }
   ]
-};
+}});
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
