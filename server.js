@@ -124,6 +124,7 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 app.post("/send-email", async (req, res) => {
     const { to, subject, text } = req.body;
+    
   
     let transporter = nodemailer.createTransport({
       service: "hotmail",
