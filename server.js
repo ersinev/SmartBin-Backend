@@ -138,12 +138,12 @@ app.post("/send-email", async (req, res) => {
     to: to,
     subject: subject,
     text: text,
-    html: '<b>Hello</b> <img src="cid:fullGarbageImage" style="width:300px;height:300px;/>', // Use the cid value provided in the attachments array
+    html: '<b>Hello</b> <img src="cid:fullGarbageImage"/>',
     attachments: [
       {
         filename: 'fullGarbage.png',
-        path: __dirname + '/fullGarbage.png', // Path to the image
-        cid: 'fullGarbageImage' // Same Content ID used in the html
+        path: __dirname + '/fullGarbage.png',
+        cid: 'fullGarbageImage' // Here, the CID is changed to match the src in the HTML.
       }
     ]
   };
