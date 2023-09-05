@@ -137,13 +137,13 @@ app.post("/send-email", async (req, res) => {
     from: "itgaragesmartbin@hotmail.com",
     to: to,
     subject: subject,
-    
-    html: '<b>Hello</b> <img src="cid:fullGarbageImage" style="width:400px;height:400px;/>',
+    text: text,
+    html: '<b>Hello</b> <img src="cid:unique@kreata.ee" style="width:300px;height:300px;/>', // Use the cid value provided in the attachments array
     attachments: [
       {
         filename: 'fullGarbage.png',
-        path: __dirname + '/fullGarbage.png',
-        cid: 'fullGarbageImage' 
+        path: __dirname + '/fullGarbage.png', // Path to the image
+        cid: 'unique@kreata.ee' // Same Content ID used in the html
       }
     ]
   };
