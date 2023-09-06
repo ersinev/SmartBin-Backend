@@ -123,26 +123,43 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 
 app.post("/send-email", async (req, res) => {
-    const { to, subject, text } = req.body;
-    
-  
-    let transporter = nodemailer.createTransport({
-      service: "hotmail",
-      auth: {
-        user: "itgaragesmartbin@hotmail.com",
-        pass: "smart123456*",
-      },
-    });
- 
+  const { to, subject } = req.body;
+  const text = `
+    <html>
+      <body>
+        <h1>${subject}</h1>
+        <p>This is your email content.</p>
+        <img src="cid:fullGarbage.png" alt="Embedded Image" />
+      </body>
+    </html>
+  `;
 
-  let mailOptions = {
+  // Create a nodemailer transporter
+  const transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "itgaragesmartbin@hotmail.com",
+      pass: "smart123456*",
+    },
+  });
+
+  // Define the email options
+  const mailOptions = {
     from: "itgaragesmartbin@hotmail.com",
     to: to,
     subject: subject,
-    text: text,
+    html: text,
+    attachments: [
+      {
+        filename: "fullGarbage.png", // Change this to your image's filename
+        path: "./fullGarbage.png", // Relative path to the image file
+        cid: "fullGarbage.png", // Unique identifier matching the src attribute in the HTML
+      },
+    ],
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Nodemailer error:", error);
       res.status(500).json({ error: "Failed to send email" }); // Sending JSON
