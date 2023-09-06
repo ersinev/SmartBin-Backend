@@ -129,7 +129,7 @@ app.post("/send-email", async (req, res) => {
       <body>
         <h1>${subject}</h1>
         <p>This is your email content.</p>
-        <img src="cid:fullGarbage.png" alt="Embedded Image" />
+        
       </body>
     </html>
   `;
@@ -149,13 +149,7 @@ app.post("/send-email", async (req, res) => {
     to: to,
     subject: subject,
     html: text,
-    attachments: [
-      {
-        filename: "fullGarbage.png", // Change this to your image's filename
-        path: "./fullGarbage.png", // Relative path to the image file
-        cid: "fullGarbage.png", // Unique identifier matching the src attribute in the HTML
-      },
-    ],
+   
   };
 
   // Send the email
