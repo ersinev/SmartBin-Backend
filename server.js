@@ -1,6 +1,7 @@
 // Load environment variables from .env file
 require("dotenv").config();
 
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -36,9 +37,9 @@ const Weight = mongoose.model(
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-  res.send("lol");
-});
+app.get('/',(req,res)=>{
+    res.send("lol")
+})
 
 // Route to add weight for a specific device
 app.post("/add-weight/:deviceId", async (req, res) => {
@@ -120,14 +121,16 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 // Send Email Route
 
+
 app.post("/send-email", async (req, res) => {
-  const { to, subject, text } = req.body;
+  const { to, subject,text } = req.body;
   const html = `
     <html>
       <body>
         <h1>${subject}</h1>
-        <img src= "https://placehold.co/600x400/orange/white">
-        <h3>The garbage fill percentage for <b>${text}</b> is over <b>80%</b>. Please empty the trash.</p>
+        <img src= "./fullGarbage.png">
+        <p>The garbage fill percentage for <b>${text}</b> is over <b>80%</b> Please empty the trash.</p>
+        
       </body>
     </html>
   `;
@@ -147,6 +150,7 @@ app.post("/send-email", async (req, res) => {
     to: to,
     subject: "Garbage is full!",
     html: html,
+   
   };
 
   // Send the email
