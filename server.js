@@ -128,7 +128,7 @@ app.post("/send-email", async (req, res) => {
     <html>
       <body>
         <h1>adasd</h1>
-        <img src= "https://raw.githubusercontent.com/ersinev/SmartBin-RenderApi/main/garbage3.png">
+        
         <p>The garbage fill percentage for <b>text</b> is over <b>80%</b> Please empty the trash.</p>
         
       </body>
