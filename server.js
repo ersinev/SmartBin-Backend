@@ -1,5 +1,6 @@
 // Load environment variables from .env file
 require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -120,12 +121,13 @@ app.delete("/delete-all-weights", async (req, res) => {
 // Send Email Route
 
 app.post("/send-email", async (req, res) => {
-
+  const { to, subject, text } = req.body;
+  
   const html = `
     <html>
       <body>
         <h1>${subject}</h1>
-        <img src="https://raw.githubusercontent.com/ersinev/SmartBin-RenderApi/main/garbage3.png">
+        <img src="https://github.com/ersinev/SmartBin-RenderApi/blob/main/garbage3.png">
         <h3>The garbage fill percentage for <b>${text}</b> is over <b style="color: red">80%</b>. Please empty the trash.</h3>
       </body>
     </html>
