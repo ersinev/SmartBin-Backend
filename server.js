@@ -122,13 +122,12 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
-  
   const html = `
     <html>
       <body>
         <h1>${subject}</h1>
-        <img src="https://placehold.co/600x400/orange/white">
-        <h3>The garbage fill percentage for <b>${text}</b> is over <b style="color: red">80%</b>. Please empty the trash.</h3>
+        <img src= "https://placehold.co/600x400/orange/white">
+        <h3>The garbage fill percentage for <b style="color : red">${text}</b> is over <b>80%</b>. Please empty the trash.</p>
       </body>
     </html>
   `;
