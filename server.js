@@ -123,11 +123,12 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 
 app.post("/send-email", async (req, res) => {
-  const { to, subject } = req.body;
+  const { to, subject,text } = req.body;
   const html = `
     <html>
       <body>
         <h1>Garbage Fill Warning</h1>
+        <p>${text}</p>
         <img src= "./fullGarbage.png">
         <p>${subject}</p>
       </body>
@@ -147,7 +148,7 @@ app.post("/send-email", async (req, res) => {
   const mailOptions = {
     from: "itgaragesmartbin@hotmail.com",
     to: to,
-    subject: "Garbage is full",
+    subject: "Garbage is full!",
     html: html,
    
   };
