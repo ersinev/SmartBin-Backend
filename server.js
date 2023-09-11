@@ -123,7 +123,7 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 
 app.post("/send-email", async (req, res) => {
-  const { to, subject,text } = req.body;
+  const { to, subject } = req.body;
   const html = `
     <html>
       <body>
@@ -147,7 +147,7 @@ app.post("/send-email", async (req, res) => {
   const mailOptions = {
     from: "itgaragesmartbin@hotmail.com",
     to: to,
-    subject: subject,
+    subject: "Garbage is full",
     html: html,
    
   };
