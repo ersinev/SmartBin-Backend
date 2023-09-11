@@ -126,8 +126,8 @@ app.post("/send-email", async (req, res) => {
     <html>
       <body>
         <h1>${subject}</h1>
-        <img src= "./fullGarbage.png">
-        <p>The garbage fill percentage for <b style={color : red}>${text}</b> is over <b style={color : red}>80%</b>. Please empty the trash.</p>
+        <img src= "https://placehold.co/600x400/orange/white">
+        <p>The garbage fill percentage for <b style={color : red}>${text}</b> is over <b>80%</b>. Please empty the trash.</p>
       </body>
     </html>
   `;
