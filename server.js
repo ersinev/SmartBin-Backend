@@ -127,9 +127,9 @@ app.post("/send-email", async (req, res) => {
   const html = `
     <html>
       <body>
-        <h1>adasd</h1>
+        <h1>${subject}</h1>
         
-        <p>The garbage fill percentage for <b>text</b> is over <b>80%</b> Please empty the trash.</p>
+        <p>The garbage fill percentage for <b>${text}</b> is over <b>80%</b> Please empty the trash.</p>
         
       </body>
     </html>
