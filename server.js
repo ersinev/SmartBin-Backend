@@ -127,9 +127,9 @@ app.post("/send-email", async (req, res) => {
   const html = `
     <html>
       <body>
-        <h1>${subject}</h1>
+        <h1>Garbage Fill Warning</h1>
         <img src= "./fullGarbage.png">
-        <p>asdasdasdad</p>
+        <p>${subject}</p>
       </body>
     </html>
   `;
