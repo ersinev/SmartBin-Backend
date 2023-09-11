@@ -1,6 +1,7 @@
 // Load environment variables from .env file
 require("dotenv").config();
-
+const fs = require('fs');
+const path = require('path');
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -122,12 +123,15 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
+  const imageFilePath = path.resolve(__dirname, 'fullGarbage.png');
+  const imageBase64 = fs.readFileSync(imageFilePath, 'base64');
+  const imageDataURI = `data:image/png;base64,${imageBase64}`;
   const html = `
     <html>
       <body>
         <h1>${subject}</h1>
-        <img src= "https://placehold.co/600x400/orange/white">
-        <p>The garbage fill percentage for <b style={color : red}>${text}</b> is over <b>80%</b>. Please empty the trash.</p>
+        <img src="${imageDataURI}">
+        <h3>The garbage fill percentage for <b style={color : red}>${text}</b> is over <b>80%</b>. Please empty the trash.</h3>
       </body>
     </html>
   `;
