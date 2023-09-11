@@ -128,9 +128,10 @@ app.post("/send-email", async (req, res) => {
     <html>
       <body>
         <h1>Garbage Fill Warning</h1>
-        <p>${text}</p>
-        <img src= "./fullGarbage.png">
         <p>${subject}</p>
+        <img src= "./fullGarbage.png">
+        <p>The garbage fill percentage for <b>${text}</b> is over 80%. Please empty the trash.</p>
+        
       </body>
     </html>
   `;
