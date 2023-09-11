@@ -122,16 +122,13 @@ app.delete("/delete-all-weights", async (req, res) => {
 // Send Email Route
 
 app.post("/send-email", async (req, res) => {
-  const { to, subject, text } = req.body;
-  const imageFilePath = path.resolve(__dirname, 'fullGarbage.png');
-  const imageBase64 = fs.readFileSync(imageFilePath, 'base64');
-  const imageDataURI = `data:image/png;base64,${imageBase64}`;
+
   const html = `
     <html>
       <body>
         <h1>${subject}</h1>
-        <img src="${imageDataURI}">
-        <h3>The garbage fill percentage for <b style={color : red}>${text}</b> is over <b>80%</b>. Please empty the trash.</h3>
+        <img src="https://github.com/ersinev/SmartBin-RenderApi/blob/main/garbage3.png?raw=true">
+        <h3>The garbage fill percentage for <b>${text}</b> is over <b style="color: red">80%</b>. Please empty the trash.</h3>
       </body>
     </html>
   `;
