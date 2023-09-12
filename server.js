@@ -126,7 +126,7 @@ app.post("/send-email", async (req, res) => {
     <html>
       <body>
         <h1>${subject}</h1>
-        <img src= "https://raw.githubusercontent.com/ersinev/SmartBin-RenderApi/main/fullGarbage.png"/>
+        <img style="height:300px; width:300px;" src= "https://raw.githubusercontent.com/ersinev/SmartBin-RenderApi/main/fullGarbage.png"/>
         <p>The garbage fill percentage for <b>${text}</b> is over <b>80%</b> Please empty the trash.</p>
         
       </body>
@@ -137,14 +137,14 @@ app.post("/send-email", async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: "itgaragesmartbin@hotmail.com",
-      pass: "smart123456*",
+      user: EMAIL_USER,
+      pass: EMAIL_PASS,
     },
   });
 
   // Define the email options
   const mailOptions = {
-    from: "itgaragesmartbin@hotmail.com",
+    from: EMAIL_USER,
     to: to,
     subject: "Garbage is full!",
     html: html,
