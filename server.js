@@ -7,7 +7,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const nodemailer = require("nodemailer");
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // replace with your frontend application's URL
+  credentials: true,
+}));
 const PORT = process.env.PORT || 3005;
 
 // MongoDB connectio
@@ -137,14 +140,14 @@ app.post("/send-email", async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: EMAIL_USER,
-      pass: EMAIL_PASS,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   // Define the email options
   const mailOptions = {
-    from: EMAIL_USER,
+    from: process.env.EMAIL_USER,
     to: to,
     subject: "Garbage is full!",
     html: html,
