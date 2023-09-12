@@ -151,7 +151,7 @@ app.post("/send-email", async (req, res) => {
   const mailOptions = {
     from: "itgaragesmartbin@hotmail.com",
     to: to,
-    subject: "Garbage is full!",
+    subject: "Garbage Is Full!",
     html: html,
   };
 
