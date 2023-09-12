@@ -7,10 +7,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const nodemailer = require("nodemailer");
-app.use(cors({
-  origin: 'http://localhost:3000', // replace with your frontend application's URL
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // replace with your frontend application's URL
+    credentials: true,
+  })
+);
 const PORT = process.env.PORT || 3005;
 
 // MongoDB connectio
@@ -129,9 +131,9 @@ app.post("/send-email", async (req, res) => {
     <html>
       <body>
         <h1>${subject}</h1>
-        <p>The garbage fill percentage for <b>${text}</b> is over <b>80%</b> Please empty the trash.</p>
-        <img style="height:300px; width:300px;" src= "https://raw.githubusercontent.com/ersinev/SmartBin-RenderApi/main/fullGarbage.png"/>
-        
+        <p>The garbage fill percentage for <b>${text}</b> is over <b style="color: red;">80%</b> Please empty the trash.</p>
+        <img style="height:300px; width:300px; border-radius: 12%;" src= "https://raw.githubusercontent.com/ersinev/SmartBin-RenderApi/main/fullGarbage.png"/>
+    
       </body>
     </html>
   `;
