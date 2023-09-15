@@ -143,7 +143,7 @@ app.post("/send-email", async (req, res) => {
     service: "hotmail",
     auth: {
       user: "itgaragesmartbin@hotmail.com",
-      pass: "smart123456*",
+      pass: process.env.EMAIL_PASS,
     },
   });
 
