@@ -142,14 +142,14 @@ app.post("/send-email", async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: "itgaragesmartbin@hotmail.com",
-      pass: "smart123456*",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   // Define the email options
   const mailOptions = {
-    from: "itgaragesmartbin@hotmail.com",
+    from: process.env.EMAIL_USER,
     to: to,
     subject: "Garbage Is Full!",
     html: html,
