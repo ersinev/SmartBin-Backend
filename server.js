@@ -143,15 +143,17 @@ app.post("/send-email", async (req, res) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.office365.com",
     port: 587,
-    secure: true, // STARTTLS
+    secure: false, // STARTTLS
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
     tls: {
-      rejectUnauthorized: false, // Allow self-signed certificates
+      ciphers: 'TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_128_CBC_SHA256:TLS_AES_128_CBC_SHA',
+      minVersion: 'TLSv1', // Set the minimum TLS version to use
     },
   });
+  
 
   // Define the email options
   const mailOptions = {
