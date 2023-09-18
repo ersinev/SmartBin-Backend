@@ -138,6 +138,7 @@ app.post("/send-email", async (req, res) => {
     </html>
   `;
 
+
   // Create a nodemailer transporter
   const transporter = nodemailer.createTransport({
     service: "hotmail",
@@ -159,10 +160,10 @@ app.post("/send-email", async (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Nodemailer error:", error);
-      res.status(500).json({ error: "Failed to send email" }); // Sending JSON
+      res.status(500).json({ error: "Failed to send email", details: error.message });
     } else {
       console.log("Email sent:", info.response);
-      res.status(200).json({ message: "Email sent successfully" }); // Sending JSON
+      res.status(200).json({ message: "Email sent successfully" });
     }
   });
 });
