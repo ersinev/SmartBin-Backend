@@ -145,8 +145,8 @@ app.post("/send-email", async (req, res) => {
     port: 587,
     secure: false, // STARTTLS
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: "itgaragesmartbin@hotmail.com",
+      pass: "smart123456*",
     },
     tls: {
       ciphers: 'TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256:TLS_AES_128_CBC_SHA256:TLS_AES_128_CBC_SHA',
@@ -157,7 +157,7 @@ app.post("/send-email", async (req, res) => {
 
   // Define the email options
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: "itgaragesmartbin@hotmail.com",
     to: to,
     subject: "Garbage Is Full!",
     html: html,
