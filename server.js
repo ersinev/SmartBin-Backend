@@ -125,6 +125,7 @@ app.delete("/delete-all-weights", async (req, res) => {
 
 // Send Email Route
 // full garbage photo https://raw.githubusercontent.com/ersinev/SmartBin-Backend/master/fullGarbage.png
+//https://raw.githubusercontent.com/ersinev/SmartBin-RenderApi/main/assets/nodemailer/fullGarbage.png
 app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
   const html = `
