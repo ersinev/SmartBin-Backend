@@ -9,7 +9,7 @@ const app = express();
 const nodemailer = require("nodemailer");
 app.use(
   cors({
-    origin: "http://localhost:3000", // replace with your frontend application's URL
+    origin: "http://localhost:3000", 
     credentials: true,
   })
 );
