@@ -124,7 +124,7 @@ app.delete("/delete-all-weights", async (req, res) => {
 });
 
 // Send Email Route
-
+// full garbage photo https://raw.githubusercontent.com/ersinev/SmartBin-Backend/master/fullGarbage.png
 app.post("/send-email", async (req, res) => {
   const { to, subject, text } = req.body;
   const html = `
@@ -132,7 +132,7 @@ app.post("/send-email", async (req, res) => {
       <body>
         <h1>${subject}</h1>
         <h4>The garbage fill percentage for <b style="color: red;">${text}</b> is over <b style="color: red;">80%</b>. Please empty the trash!</h4>
-        <img style="height:300px; width:300px; border-radius: 12%;" src= "https://raw.githubusercontent.com/ersinev/SmartBin-Backend/master/fullGarbage.png"/>
+        <img style="height:300px; width:300px; border-radius: 12%;" src= "https://iili.io/J25zkMJ.png"/>
     
       </body>
     </html>
