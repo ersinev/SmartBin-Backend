@@ -15,7 +15,7 @@ app.use(
 );
 const PORT = process.env.PORT || 3005;
 
-// MongoDB connectio
+// MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
