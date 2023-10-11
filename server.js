@@ -42,7 +42,7 @@ const Weight = mongoose.model(
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("lol");
+  res.send("home");
 });
 
 // Route to add weight for a specific device
