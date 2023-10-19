@@ -101,7 +101,7 @@ app.delete("/delete-weight/:id", async (req, res) => {
 });
 
 // Delete all records for a specific deviceId
-app.delete("/delete-weights/:deviceId", async (req, res) => {
+app.delete(`/delete-weights/:deviceId/${process.env.DELETE_CODE}`, async (req, res) => {
   try {
     const result = await Weight.deleteMany({ deviceId: req.params.deviceId });
     res
@@ -113,7 +113,7 @@ app.delete("/delete-weights/:deviceId", async (req, res) => {
 });
 
 // Delete all records
-app.delete("/delete-all-weights", async (req, res) => {
+app.delete(`/delete-all-weights/${process.env.DELETE_CODE}`, async (req, res) => {
   try {
     const result = await Weight.deleteMany({});
     res
