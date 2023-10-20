@@ -9,8 +9,9 @@ const app = express();
 const nodemailer = require("nodemailer");
 app.use(
   cors({
-    //origin: "https://glittering-panda-2c5ed1.netlify.app"
-    origin: "http://localhost:3000", 
+    //"http://localhost:3000"
+    //origin: "https://afvalbinn.netlify.app/"
+    origin: "https://afvalbinn.netlify.app/", 
     credentials: true,
   })
 );
