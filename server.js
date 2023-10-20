@@ -11,7 +11,7 @@ app.use(
   cors({
     //"http://localhost:3000"
     //origin: "https://afvalbinn.netlify.app/"
-    origin: "https://afvalbinn.netlify.app/", 
+    origin: "https://afvalbinn.netlify.app", 
     credentials: true,
   })
 );
